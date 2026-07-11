@@ -1,0 +1,52 @@
+:root {
+    --bg-color: #0f172a;
+    --accent-color: #38bdf8;
+    --text-color: #f8fafc;
+}
+
+.search-container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.search-box {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    background: #1e293b;
+    /* border-radius: 50px; */
+    padding: 5px 20px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+/* Hiệu ứng focus */
+.search-box:focus-within {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+}
+
+.search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-color);
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.search-btn {
+    background: transparent;
+    border: none;
+    color: var(--accent-color);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.search-btn:hover {
+    transform: scale(1.2);
+}

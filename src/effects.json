@@ -1,0 +1,17 @@
+[
+    {
+        "id": "glitch-btn-h",
+        "name": "Glitch Button",
+        "category": "button",
+        "path": "/components/buttons/glitch-button",
+        "tags": "button, glitch, css, animation"
+    },
+
+    {
+        "id": "search-box",
+        "name": "Search box",
+        "category": "search",
+        "path": "/components/search-box",
+        "tags": "search"
+    }
+]
