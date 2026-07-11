@@ -8,6 +8,7 @@ import css from 'highlight.js/lib/languages/css';
 import configEffects from './effects.json'
 import { setupCloseModal, setupSwitchCode } from './modal.js'
 import { setupCopyToClipBoard } from './copy.js'
+const baseUrl = import.meta.env.BASE_URL;
 
 hljs.registerLanguage('css', css);
 
@@ -50,7 +51,7 @@ let gridDashboard = '';
 configEffects.forEach((conf) => {
   gridDashboard += `
     <div class="effect-card" data-category="${conf.category}" data-tags="${conf.tags}">
-      <iframe src="${conf.path}/index.html" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+      <iframe src="${baseUrl}${conf.path}/index.html" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
       <h3>${conf.name}</h3>
       <button class="view-code-btn" data-path="${conf.path}" data-title="${conf.name}">Xem Code</button>
     </div>
