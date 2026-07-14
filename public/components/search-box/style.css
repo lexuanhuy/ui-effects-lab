@@ -4,6 +4,10 @@
     --text-color: #f8fafc;
 }
 
+body {
+    background-color: var(--bg-color);
+}
+
 .search-container {
     padding: 20px;
     display: flex;
