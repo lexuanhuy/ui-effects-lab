@@ -6,6 +6,13 @@
         "path": "components/buttons/glitch-button",
         "tags": "button, glitch, css, animation"
     },
+    {
+        "id": "liquid-fill-btn",
+        "name": "Liquid Fill Button",
+        "category": "button",
+        "path": "components/buttons/liquid-fill",
+        "tags": "button, liquid fill, css, animation"
+    },
 
     {
         "id": "search-box",
