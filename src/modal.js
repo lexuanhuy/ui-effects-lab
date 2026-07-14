@@ -1,12 +1,45 @@
-import hljs from 'highlight.js'
+import hljs from 'highlight.js';
 
-export function setupCloseModal(element) {
+export const codeCache = { html: '', css: '', javascript: '' };
+
+export async function setUpModal(modalElement, viewCodeButtonsElement) {
     const closeModal = () => {
-        element.style.display = 'none';
+        modalElement.style.display = 'none';
     }
 
-    element.querySelector(".close-btn").addEventListener('click', closeModal)
+    const openModal = async (effectPath, title) => {
+        document.getElementById('modal-title').innerText = title;
 
+        document.querySelectorAll("#code-tabs button").forEach((btnEl) => {
+            const codeType = btnEl.getAttribute('data-code');
+            if (codeType === 'html')
+                btnEl.classList.add('active');
+            else
+                btnEl.classList.remove('active');
+        })
+
+        // Fetch code
+        codeCache.html = (await fetch(`${effectPath}/index.html?raw`).then(r => r.text())).replace('<script type="module" src="/@vite/client"></script>', '');
+        codeCache.css = (await fetch(`${effectPath}/style.css?raw`).then(r => r.text())).replace('export default "', '').replace(/"$/, '').replace(/\\r\\n/g, '\n');
+        codeCache.js = (await fetch(`${effectPath}/main.js?raw`).then(r => r.text()));
+
+        // first load is html
+        document.getElementById('code-modal').style.display = 'flex';
+        document.getElementById('code-display').textContent = codeCache.html;
+        document.getElementById('code-display').className = `language-html`;
+        hljs.highlightElement(document.getElementById('code-display'));
+    }
+
+    modalElement.querySelector(".close-btn").addEventListener('click', closeModal)
+    viewCodeButtonsElement.forEach((viewCodeButtonElement) => {
+        viewCodeButtonElement.addEventListener('click', (e) => {
+            const btnEl = e.target;
+            const path = btnEl.getAttribute('data-path');
+            const title = btnEl.getAttribute('data-title');
+
+            openModal(path, title);
+        })
+    })
 }
 
 export function setupSwitchCode(tabElement, codeElement, codeCache) {
@@ -19,8 +52,8 @@ export function setupSwitchCode(tabElement, codeElement, codeCache) {
             const codeType = e.target.getAttribute('data-code');
             e.target.classList.add('active');
             codeElement.textContent = codeCache[codeType];
-            codeElement.className = `language-${codeType}`;
-            hljs.highlightElement(codeElement);
+            // codeElement.className = `language-${codeType}`;
+            // hljs.highlightElement(codeElement);
         })
     })
 }

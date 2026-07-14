@@ -1,51 +1,13 @@
-import './style.css'
-import javascriptLogo from './assets/javascript.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import { setupSearch } from './search.js'
-import hljs from 'highlight.js'
-import css from 'highlight.js/lib/languages/css';
-import configEffects from './effects.json'
-import { setupCloseModal, setupSwitchCode } from './modal.js'
-import { setupCopyToClipBoard } from './copy.js'
+import './style.css';
+import javascriptLogo from './assets/javascript.svg';
+import viteLogo from './assets/vite.svg';
+import heroImg from './assets/hero.png';
+import { setupSearch } from './search.js';
+import configEffects from './effects.json';
+import { setUpModal, codeCache, setupSwitchCode } from './modal.js';
+import { setupCopyToClipBoard } from './copy.js';
 const baseUrl = import.meta.env.BASE_URL;
 
-hljs.registerLanguage('css', css);
-
-
-const codeCache = { html: '', css: '', javascript: '' };
-async function openModal(effectPath, title) {
-  document.getElementById('modal-title').innerText = title;
-
-  document.querySelectorAll("#code-tabs button").forEach((btnEl) => {
-    const codeType = btnEl.getAttribute('data-code');
-    if(codeType === 'html')
-      btnEl.classList.add('active');
-    else
-      btnEl.classList.remove('active');
-  })
-
-  // Fetch code
-  codeCache.html = (await fetch(`${effectPath}/index.html?raw`).then(r => r.text())).replace('<script type="module" src="/@vite/client"></script>', '');
-  codeCache.css = (await fetch(`${effectPath}/style.css?raw`).then(r => r.text())).replace('export default "', '').replace(/"$/, '').replace(/\\r\\n/g, '\n');
-
-  document.getElementById('code-modal').style.display = 'flex';
-  document.getElementById('code-display').textContent = codeCache.html;
-  document.getElementById('code-display').className = `language-html`;
-  hljs.highlightElement(document.getElementById('code-display'));
-}
-
-async function closeModal() {
-  document.getElementById('code-modal').style.display = 'none';
-}
-
-document.addEventListener('click', (e) => {
-  if (e.target.classList.contains('view-code-btn')) {
-    const path = e.target.getAttribute('data-path');
-    const title = e.target.getAttribute('data-title');
-    openModal(path, title);
-  }
-});
 
 let gridDashboard = '';
 configEffects.forEach((conf) => {
@@ -56,7 +18,7 @@ configEffects.forEach((conf) => {
       <button class="view-code-btn" data-path="${conf.path}" data-title="${conf.name}">Xem Code</button>
     </div>
   `
-})
+});
 
 document.querySelector('#app').innerHTML = `
 <header>
@@ -104,14 +66,10 @@ document.querySelector('#app').innerHTML = `
     </div>
 </div>
 `
-document.addEventListener('DOMContentLoaded', (event) => {
-  document.querySelectorAll('pre code').forEach((el) => {
-    hljs.highlightElement(el);
-  });
-});
-// search box
+
+// setup js
 setupSearch(document.querySelector('#live-search'), document.querySelectorAll('.effect-card'));
-setupCloseModal(document.querySelector('#code-modal'));
+setUpModal(document.querySelector('#code-modal'), document.querySelectorAll('.view-code-btn'));
 setupSwitchCode(document.querySelector('#code-tabs'), document.querySelector('#code-display'), codeCache);
-setupCopyToClipBoard(document.querySelector('#copy-btn'), document.querySelector('#code-display'))
+setupCopyToClipBoard(document.querySelector('#copy-btn'), document.querySelector('#code-display'));
 

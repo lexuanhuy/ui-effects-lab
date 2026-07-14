@@ -3,7 +3,6 @@ import { showToast } from './toast';
 export function setupCopyToClipBoard(btnElement, codeElement) {
     btnElement.addEventListener('click', () => {
         const text = codeElement.innerText;
-        console.log("copy.js ~ text:", text);
         navigator.clipboard.writeText(text)
             .then(() => {
                 console.log('Text successfully copied!');

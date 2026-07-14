@@ -3,7 +3,7 @@
         "id": "glitch-btn-h",
         "name": "Glitch Button",
         "category": "button",
-        "path": "/components/buttons/glitch-button",
+        "path": "components/buttons/glitch-button",
         "tags": "button, glitch, css, animation"
     },
 
@@ -11,7 +11,14 @@
         "id": "search-box",
         "name": "Search box",
         "category": "search",
-        "path": "/components/search-box",
+        "path": "components/search-box",
         "tags": "search"
+    },
+    {
+        "id": "glitch-checkbox",
+        "name": "Glich Checkbox",
+        "category": "checkbox",
+        "path": "components/checkboxes/glitch-checkbox",
+        "tags": "checkbox, glitch"
     }
 ]
