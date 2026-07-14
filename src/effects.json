@@ -7,6 +7,13 @@
         "tags": "button, glitch, css, animation"
     },
     {
+        "id": "glitch-btn-2",
+        "name": "Glitch Button 2",
+        "category": "button",
+        "path": "components/buttons/glitch-2",
+        "tags": "button, glitch, css, animation"
+    },
+    {
         "id": "liquid-fill-btn",
         "name": "Liquid Fill Button",
         "category": "button",

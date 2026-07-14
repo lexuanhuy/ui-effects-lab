@@ -1,0 +1,161 @@
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+:root {
+    --bg-color: #0f172a;
+    --accent-color: #38bdf8;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background-color: var(--bg-color);
+}
+
+
+/* ************************** */
+
+.box {
+    width: 70%;
+    min-height: 60vh;
+    /* border: solid red 2px; */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+a {
+    text-decoration: none;
+    color: #efefef;
+    background: #161724;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    /* border-radius: 1.3rem; */
+    position: relative;
+    border: 1px solid var(--accent-color);
+}
+
+a:hover {
+    animation: skew .4s;
+}
+
+a::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #fa01fd;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+    /* border-radius: 1.3rem; */
+    color: #efefef;
+}
+
+a::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #00f7f6;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    /* border-radius: 1.3rem; */
+}
+
+
+/* Pink glitch effect */
+
+a:hover::after {
+    animation: pink .4s 2;
+}
+
+
+/* blue glitch effect */
+
+a:hover::before {
+    animation: blue .4s 2;
+}
+
+
+/* ************************* */
+
+
+/* Animation */
+
+
+/* ************************* */
+
+@keyframes blue {
+    0% {
+        transform: translate(0)
+    }
+    20% {
+        transform: translate(-.6rem, .6rem)
+    }
+    40% {
+        transform: translate(-.6rem, -.6rem)
+    }
+    60% {
+        transform: translate(.6rem, -.6rem)
+    }
+    80% {
+        transform: translate(.6rem, -.6rem)
+    }
+    to {
+        transform: translate(0)
+    }
+}
+
+@keyframes pink {
+    0% {
+        transform: translate(0)
+    }
+    20% {
+        transform: translate(.6rem, .6rem)
+    }
+    40% {
+        transform: translate(.6rem, .6rem)
+    }
+    60% {
+        transform: translate(-.6rem, -.6rem)
+    }
+    80% {
+        transform: translate(-.6rem, .6rem)
+    }
+    to {
+        transform: translate(0)
+    }
+}
+
+@keyframes skew {
+    0% {
+        transform: skew(0);
+    }
+    20% {
+        transform: skew(-50deg);
+    }
+    40% {
+        transform: skew(10deg);
+    }
+    60% {
+        transform: skew(-20deg);
+    }
+    80% {
+        transform: skew(25deg);
+    }
+    to {
+        transform: skew(0);
+    }
+}
