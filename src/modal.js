@@ -1,4 +1,5 @@
 import hljs from 'highlight.js';
+import { setupCopyToClipBoard } from './copy';
 
 export const codeCache = { html: '', css: '', javascript: '' };
 
@@ -39,7 +40,10 @@ export async function setUpModal(modalElement, viewCodeButtonsElement) {
 
             openModal(path, title);
         })
-    })
+    });
+
+    setupSwitchCode(document.querySelector('#code-tabs'), document.querySelector('#code-display'), codeCache);
+    setupCopyToClipBoard(document.querySelector('#copy-btn'), document.querySelector('#code-display'));
 }
 
 export function setupSwitchCode(tabElement, codeElement, codeCache) {

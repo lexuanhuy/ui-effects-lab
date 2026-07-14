@@ -1,96 +1,45 @@
 import './style.css';
-import javascriptLogo from './assets/javascript.svg';
-import viteLogo from './assets/vite.svg';
-import heroImg from './assets/hero.png';
 import { setupSearch } from './search.js';
 import configEffects from './effects.json';
 import { setUpModal, codeCache, setupSwitchCode } from './modal.js';
 import { setupCopyToClipBoard } from './copy.js';
+import { renderGrid } from './render.js';
+import { HeaderHTML } from './components/Header.js';
+import { FooterHTML } from './components/Footer.js';
+import { ModalHTML } from './components/ModalComponent.js';
+
 const baseUrl = import.meta.env.BASE_URL;
+const App = document.querySelector('#app');
 
-async function loadEffects() {
-    // Quét toàn bộ file meta.json trong thư mục components
-    // Chú ý: dùng eager: true để lấy dữ liệu ngay lập tức
-    const modules = import.meta.glob('/public/components/**/meta.json', { eager: true });
-    
-    const effects = Object.entries(modules).map(([path, data]) => {
-        // Trích xuất path folder từ đường dẫn file meta.json
-        // Ví dụ path: "/public/components/buttons/glitch-button/meta.json"
-        // => folderPath: "components/buttons/glitch-button"
-        const folderPath = path.replace('/public/', '').replace('/meta.json', '');
-        
-        return {
-            ...data.default, // Dữ liệu từ meta.json
-            path: folderPath
-        };
-    });
+async function init() {
+  // load head HTML
+  document.body.insertAdjacentHTML('afterbegin', HeaderHTML);
+  App.innerHTML = `<main class="grid-container"></main>`;
 
-    return effects;
+  const modules = import.meta.glob('/public/components/**/meta.json', { eager: true });
+  const effects = Object.entries(modules).map(([path, data]) => {
+    // Trích xuất path folder từ đường dẫn file meta.json
+    // "/public/components/buttons/glitch-button/meta.json" => "components/buttons/glitch-button"
+    const folderPath = path.replace('/public/', '').replace('/meta.json', '');
+
+    return {
+      ...data.default,
+      path: folderPath
+    };
+  });
+  const allEffects = [...configEffects, ...effects];
+
+  // Render effects
+  const mainGrid = App.querySelector('.grid-container');
+  renderGrid(mainGrid, allEffects, baseUrl);
+
+  // load html
+  document.body.insertAdjacentHTML('beforeend', FooterHTML);
+  document.body.insertAdjacentHTML('beforeend', ModalHTML);
+
+  // setup js
+  setupSearch(document.querySelector('#live-search'), document.querySelectorAll('.effect-card'));
+  setUpModal(document.querySelector('#code-modal'), document.querySelectorAll('.view-code-btn'));
 }
 
-const localEffects = await loadEffects();
-
-let gridDashboard = '';
-[...configEffects, ...localEffects].forEach((conf) => {
-  gridDashboard += `
-    <div class="effect-card" data-category="${conf.category}" data-tags="${conf.tags}">
-      <iframe src="${baseUrl}${conf.path}/index.html" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
-      <h3>${conf.name}</h3>
-      <button class="view-code-btn" data-path="${conf.path}" data-title="${conf.name}">Xem Code</button>
-    </div>
-  `
-});
-
-document.querySelector('#app').innerHTML = `
-<header>
-    <h1>UI Effects Lab</h1>
-    <div class="search-container">
-        <div class="search-box">
-            <input type="text" placeholder="Tìm kiếm hiệu ứng..." id="live-search" class="search-input">
-            <button class="search-btn">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-            </button>
-        </div>
-    </div>
-</header>
-<main class="grid-container">
-  ${gridDashboard}
-</main>
-<footer>
-  Created by <a href="https://github.com/lexuanhuy" target="_blank">lexuanhuy</a> with 
-  <svg class="heart-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-  </svg>
-</footer>
-
-<div id="code-modal" class="modal-overlay" style="display: none;">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2 id="modal-title">Tên hiệu ứng</h2>
-            <button class="close-btn">&times;</button>
-        </div>
-        
-        <div class="code-tabs" id="code-tabs">
-            <button data-code="html" id="code-tab-html" class="active">HTML</button>
-            <button data-code="css" id="code-tab-css">CSS</button>
-            <button data-code="javascript" id="code-tab-js">JS</button>
-        </div>
-        
-        <pre><code id="code-display"></code></pre>
-        
-        <div class="modal-footer">
-          <button id="copy-btn">Copy Code</button>
-        </div>
-    </div>
-</div>
-`
-
-// setup js
-setupSearch(document.querySelector('#live-search'), document.querySelectorAll('.effect-card'));
-setUpModal(document.querySelector('#code-modal'), document.querySelectorAll('.view-code-btn'));
-setupSwitchCode(document.querySelector('#code-tabs'), document.querySelector('#code-display'), codeCache);
-setupCopyToClipBoard(document.querySelector('#copy-btn'), document.querySelector('#code-display'));
-
+init();

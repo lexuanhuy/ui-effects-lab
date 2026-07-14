@@ -1,0 +1,16 @@
+export const HeaderHTML = `
+<header>
+    <h1>UI Effects Lab</h1>
+    <div class="search-container">
+        <div class="search-box">
+            <input type="text" placeholder="Tìm kiếm hiệu ứng..." id="live-search" class="search-input">
+            <button class="search-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
+        </div>
+    </div>
+</header>
+`;
