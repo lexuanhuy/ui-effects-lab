@@ -13,6 +13,13 @@
         "path": "components/buttons/liquid-fill",
         "tags": "button, liquid fill, css, animation"
     },
+    {
+        "id": "matrix-rain-btn",
+        "name": "Matrix Rain Button",
+        "category": "button",
+        "path": "components/buttons/matrix-rain",
+        "tags": "button, matrix rain, css, animation"
+    },
 
     {
         "id": "search-box",
