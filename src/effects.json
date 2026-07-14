@@ -34,6 +34,13 @@
         "path": "components/buttons/matrix-rain",
         "tags": "button, matrix rain, css, animation"
     },
+    {
+        "id": "hologram-btn",
+        "name": "Hologram Button",
+        "category": "button",
+        "path": "components/buttons/hologram",
+        "tags": "button, hologram, css, animation"
+    },
 
     {
         "id": "search-box",
