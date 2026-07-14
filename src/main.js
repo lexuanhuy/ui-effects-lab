@@ -8,9 +8,30 @@ import { setUpModal, codeCache, setupSwitchCode } from './modal.js';
 import { setupCopyToClipBoard } from './copy.js';
 const baseUrl = import.meta.env.BASE_URL;
 
+async function loadEffects() {
+    // Quét toàn bộ file meta.json trong thư mục components
+    // Chú ý: dùng eager: true để lấy dữ liệu ngay lập tức
+    const modules = import.meta.glob('/public/components/**/meta.json', { eager: true });
+    
+    const effects = Object.entries(modules).map(([path, data]) => {
+        // Trích xuất path folder từ đường dẫn file meta.json
+        // Ví dụ path: "/public/components/buttons/glitch-button/meta.json"
+        // => folderPath: "components/buttons/glitch-button"
+        const folderPath = path.replace('/public/', '').replace('/meta.json', '');
+        
+        return {
+            ...data.default, // Dữ liệu từ meta.json
+            path: folderPath
+        };
+    });
+
+    return effects;
+}
+
+const localEffects = await loadEffects();
 
 let gridDashboard = '';
-configEffects.forEach((conf) => {
+[...configEffects, ...localEffects].forEach((conf) => {
   gridDashboard += `
     <div class="effect-card" data-category="${conf.category}" data-tags="${conf.tags}">
       <iframe src="${baseUrl}${conf.path}/index.html" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
