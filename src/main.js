@@ -14,19 +14,17 @@ const app = document.querySelector('#app');
 async function init() {
   // load head HTML
   document.body.insertAdjacentHTML('afterbegin', HeaderHTML);
+  // load grid effect container
   app.innerHTML = `<main class="grid-container"></main>`;
 
+  // load meta.json
   const modules = import.meta.glob('/public/components/**/meta.json', { eager: true });
   const effects = Object.entries(modules).map(([path, data]) => {
-    // Trích xuất path folder từ đường dẫn file meta.json
     // "/public/components/buttons/glitch-button/meta.json" => "components/buttons/glitch-button"
     const folderPath = path.replace('/public/', '').replace('/meta.json', '');
-
-    return {
-      ...data.default,
-      path: folderPath
-    };
+    return { ...data.default, path: folderPath };
   });
+  // merge config from meta.json in components with effects.json
   const allEffects = [...configEffects, ...effects];
 
   // Render effects

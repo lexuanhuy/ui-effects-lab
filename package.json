@@ -6,12 +6,15 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "new-effect": "zx new-effect.js"
   },
   "devDependencies": {
     "vite": "^8.1.1"
   },
   "dependencies": {
-    "highlight.js": "^11.11.1"
+    "chalk": "^5.6.2",
+    "highlight.js": "^11.11.1",
+    "zx": "^8.8.5"
   }
 }
