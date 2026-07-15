@@ -44,6 +44,7 @@ ui-effects-lab/
 ├── index.html                     # Entrypoint HTML của ứng dụng
 ├── package.json                   # Cấu hình dự án và dependencies
 └── vite.config.js                 # Cấu hình Vite bundler
+└── new-effect.js                  # Script tạo mới effect
 ```
 
 ---
@@ -85,6 +86,14 @@ Sản phẩm đầu ra sẽ nằm trong thư mục `dist`. Bạn có thể kiể
 ```bash
 npm run preview
 ```
+
+### 5. Sử dụng scripts
+```bash
+npm run new-script
+```
+Nhập tên `component` và tên `effect`
+
+Script sẽ tạo mới thư mục tại `public/components/${component}/${name}` và tạo 4 file (`index.html`, `style.css`, `meta.json`, `main.js`) ở trong thư mục `${name}`
 
 ---
 
