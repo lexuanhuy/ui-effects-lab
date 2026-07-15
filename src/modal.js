@@ -22,13 +22,18 @@ export async function setUpModal(modalElement, viewCodeButtonsElement) {
         // Fetch code
         codeCache.html = (await fetch(`${effectPath}/index.html?raw`).then(r => r.text())).replace('<script type="module" src="/@vite/client"></script>', '');
         codeCache.css = (await fetch(`${effectPath}/style.css?raw`).then(r => r.text())).replace('export default "', '').replace(/"$/, '').replace(/\\r\\n/g, '\n');
-        codeCache.js = (await fetch(`${effectPath}/main.js?raw`).then(r => r.text()));
+        codeCache.javascript = (await fetch(`${effectPath}/main.js?raw`).then(r => r.text()));
+        if (codeCache.javascript.includes('<!DOCTYPE html>') || codeCache.javascript.includes('<html')) {
+            codeCache.javascript = '';
+        }
 
         // first load is html
+        const codeElement = document.getElementById('code-display');
         document.getElementById('code-modal').style.display = 'flex';
-        document.getElementById('code-display').textContent = codeCache.html;
-        document.getElementById('code-display').className = `language-html`;
-        hljs.highlightElement(document.getElementById('code-display'));
+        codeElement.textContent = codeCache.html;
+        codeElement.className = `language-html`;
+        delete codeElement.dataset.highlighted;
+        hljs.highlightElement(codeElement);
     }
 
     modalElement.querySelector(".close-btn").addEventListener('click', closeModal)
@@ -56,8 +61,9 @@ export function setupSwitchCode(tabElement, codeElement, codeCache) {
             const codeType = e.target.getAttribute('data-code');
             e.target.classList.add('active');
             codeElement.textContent = codeCache[codeType];
-            // codeElement.className = `language-${codeType}`;
-            // hljs.highlightElement(codeElement);
+            codeElement.className = `language-${codeType}`;
+            delete codeElement.dataset.highlighted;
+            hljs.highlightElement(codeElement);
         })
     })
 }

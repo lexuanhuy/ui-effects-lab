@@ -9,12 +9,12 @@ import { FooterHTML } from './components/Footer.js';
 import { ModalHTML } from './components/ModalComponent.js';
 
 const baseUrl = import.meta.env.BASE_URL;
-const App = document.querySelector('#app');
+const app = document.querySelector('#app');
 
 async function init() {
   // load head HTML
   document.body.insertAdjacentHTML('afterbegin', HeaderHTML);
-  App.innerHTML = `<main class="grid-container"></main>`;
+  app.innerHTML = `<main class="grid-container"></main>`;
 
   const modules = import.meta.glob('/public/components/**/meta.json', { eager: true });
   const effects = Object.entries(modules).map(([path, data]) => {
@@ -30,7 +30,7 @@ async function init() {
   const allEffects = [...configEffects, ...effects];
 
   // Render effects
-  const mainGrid = App.querySelector('.grid-container');
+  const mainGrid = app.querySelector('.grid-container');
   renderGrid(mainGrid, allEffects, baseUrl);
 
   // load html
