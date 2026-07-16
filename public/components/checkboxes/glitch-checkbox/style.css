@@ -1,4 +1,7 @@
-/* --- Root Variables & Wrapper --- */
+body {
+ background-color: #0d0d0d; 
+}
+
 .glitch-checkbox-wrapper {
   --bg-color: #0d0d0d;
   --primary-color: #00f2ea;

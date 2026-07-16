@@ -13,9 +13,8 @@ body {
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  /* min-height: 100vh; */
   font-family: 'Cyber', sans-serif;
-  background: linear-gradient(90deg, #f5ed00 70%, #e6de00 70%), #fff700;
+  background: #0f172a;
 }
 
 body .cybr-btn + .cybr-btn {
@@ -96,7 +95,7 @@ body .cybr-btn + .cybr-btn {
   bottom: -5%;
   right: 5%;
   font-weight: normal;
-  color: hsl(0, 0%, 0%);
+  color: #e8e8e8;
   font-size: var(--label-size);
 }
 
