@@ -87,14 +87,6 @@ Sản phẩm đầu ra sẽ nằm trong thư mục `dist`. Bạn có thể kiể
 npm run preview
 ```
 
-### 5. Sử dụng scripts
-```bash
-npm run new-script
-```
-Nhập tên `component` và tên `effect`
-
-Script sẽ tạo mới thư mục tại `public/components/${component}/${name}` và tạo 4 file (`index.html`, `style.css`, `meta.json`, `main.js`) ở trong thư mục `${name}`
-
 ---
 
 ## Hướng dẫn thêm một hiệu ứng mới
@@ -136,6 +128,15 @@ Mở file `src/effects.json` và thêm cấu hình của hiệu ứng mới vào
     "tags": "button, custom, animation"
 }
 ```
+
+
+## Sử dụng scripts tạo hiệu ứng
+```bash
+npm run new-script
+```
+Nhập tên `component` và tên `effect`
+
+Script sẽ tạo mới thư mục tại `public/components/${component}/${name}` và tạo 4 file (`index.html`, `style.css`, `meta.json`, `main.js`) ở trong thư mục `${name}`
 
 *Giải thích các thuộc tính:*
 - `id`: Định danh duy nhất cho hiệu ứng.

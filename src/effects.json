@@ -1,12 +1,5 @@
 [
     {
-        "id": "glitch-btn",
-        "name": "Glitch Button",
-        "category": "button",
-        "path": "components/buttons/glitch",
-        "tags": "button, glitch, css, animation"
-    },
-    {
         "id": "glitch-btn-2",
         "name": "Glitch Button 2",
         "category": "button",
