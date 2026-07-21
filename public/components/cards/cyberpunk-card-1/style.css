@@ -1,0 +1,74 @@
+:root {
+    --bg-color: #0f172a;
+    --accent-color: #38bdf8;
+    --border-color: #fff;
+
+    --neon-cyan: #00F0FF;
+    --neon-pink: #FF00FF;
+    --neon-green: #39FF14;
+    --neon-yellow: #FFFF00;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    display: flex;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.effect-wrapper {
+    margin: auto;
+}
+
+h3 {
+    color: var(--neon-cyan)
+}
+
+.cyberpunk-card-wrapper {
+    --clip-path-width: 30px;
+    position: relative;
+    background-color: var(--border-color);
+    padding: 1px;
+    display: flex;
+    width: 250px;
+
+    clip-path: polygon(0 0, 100% 0, 100% 0, 100% 100%, var(--clip-path-width) 100%, 0 calc(100% - var(--clip-path-width)));
+}
+.cyberpunk-card-wrapper::before {
+    content: "";
+    --clip-path-width: 8px;
+    z-index: 2;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    background-color: var(--bg-color);
+    clip-path: polygon(0 0, var(--clip-path-width) 0, 100% calc(100% - var(--clip-path-width)), 100% 100%);
+}
+
+.cyberpunk-card-wrapper::after {
+    content: "";
+    --clip-path-width: 8px;
+    z-index: 2;
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    width: 18px;
+    height: 18px;
+    background-color: var(--bg-color);
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
+.cyberpunk-card-content {
+    --clip-path-width-2: 15px;
+    background-color: var(--bg-color);
+    text-align: center;
+    color: #fff;
+    padding: 16px;
+
+    clip-path: polygon(var(--clip-path-width-2) 0%, calc(100% - var(--clip-path-width)) 0%, 100% var(--clip-path-width), 100% calc(100% - var(--clip-path-width-2)), calc(100% - var(--clip-path-width-2)) 100%, var(--clip-path-width) 100%, 0% calc(100% - var(--clip-path-width)), 0% var(--clip-path-width-2));
+}
